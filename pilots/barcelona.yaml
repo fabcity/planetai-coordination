@@ -1,0 +1,111 @@
+slug: barcelona
+display_name: Barcelona
+status: P0
+host_state: Spain / Catalonia
+time_zone: CET / CEST (UTC+1 / +2)
+
+contacts:
+  coordinator:
+    name: IAAC + Fab Lab Barcelona
+    role: methodology-consolidation anchor
+    primary: TBD (Areti Markopoulou for IAAC AAG; Guillem Camprodon for Smart Citizen / Fab Lab BCN)
+    email: TBD
+  executor:
+    name: Fab Lab Barcelona
+    role: operational hub + Smart Citizen integration
+    primary: Guillem Camprodon
+    email: TBD
+  technical:
+    name: Barcelona Supercomputing Center (BSC)
+    role: federated training infrastructure + Earth-system modeling
+    primary: TBD (named HPC contact pending)
+    email: TBD
+  municipal:
+    name: Open Data BCN / Barcelona City Council
+    role: municipal data anchor — "open data by default" policy since 2010
+    primary: TBD (Municipal Data Office liaison)
+    email: TBD
+
+network_vs_pilot:
+  network_committed:
+    - Four-pillar × five-scale matrix (Full Stack Metrics Framework)
+    - Two pre-registered hypotheses (H_0-T, H_0-A)
+    - Shared connectors-yaml schema for data sources
+    - Hub-as-harvester operational model
+  pilot_specific:
+    - CENTRINNO Hub Toolkit translation into network playbook (months 1–6)
+    - Smart Citizen 2.4 (LoRa/Meshtastic) as canonical sensor + comms substrate
+    - BSC federated-training infrastructure integration
+    - Metabolism of Cities OMAT as MFA infrastructure for H_0-T
+
+data_sources:
+  primary: open-data-bcn
+  secondary:
+    - metabolism-of-cities-bcn
+    - generalitat-dades-obertes
+    - smart-citizen
+    - ted-eu
+  earth_system:
+    - bsc-compute-allocation
+
+hypotheses:
+  H_0_T:
+    in_grant_unit: Barcelona pilot district anchored by Fab Lab Barcelona / Poblenou
+    signal_source: Open Data BCN + Metabolism of Cities OMAT + Generalitat residus municipals
+    sensor_campaigns:
+      - smart-citizen-bcn-redensification
+      - sensor-community-pm
+  H_0_A:
+    procurement_source: TED-EU procurement notices
+
+open_asks:
+  - id: bcn-open-data-cadence-verification
+    asks_of: Open Data BCN Municipal Data Office (via Fab Lab BCN)
+    by: 2026-06-30
+    status: pending
+  - id: smart-citizen-bcn-redensification-plan
+    asks_of: Guillem Camprodon + Smart Citizen team
+    by: 2026-06-15
+    status: pending
+  - id: mddi-successor-pipeline-naming
+    asks_of: IAAC programmes office
+    by: 2026-07-15
+    status: pending
+  - id: centrinno-translation-timeline-and-owner
+    asks_of: Fab Lab Barcelona + IAAC
+    by: 2026-06-30
+    status: pending
+  - id: bsc-hpc-counterpart-naming
+    asks_of: BSC partnerships team
+    by: 2026-07-15
+    status: pending
+
+validation:
+  last_full_review: null
+  sections:
+    overview:
+      status: pending
+      validated_by: []
+      open_questions: []
+    whats-running:
+      status: pending
+      validated_by: []
+      open_questions: []
+    data-access:
+      status: pending
+      validated_by: []
+      open_questions: []
+    open-questions:
+      status: pending
+      validated_by: []
+      open_questions: []
+    proposed-pilot-scope:
+      status: pending
+      validated_by: []
+      open_questions: []
+
+related_decisions:
+  - 2026-04-27_pillar-correction
+  - 2026-04-27_scales-correction
+  - 2026-04-28_pito-dido-narrative-layer
+  - 2026-05-01_hub-architecture-12-to-4

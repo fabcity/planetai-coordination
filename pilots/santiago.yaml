@@ -1,0 +1,118 @@
+slug: santiago
+display_name: Santiago de Chile
+status: P1
+host_state: Chile
+time_zone: CLT (UTC-4)
+
+contacts:
+  coordinator:
+    name: UC Diseño (Pontificia Universidad Católica de Chile)
+    role: institutional anchor — Faculty of Design
+    primary: Tomás Vivanco (PLANETAI lead) + Martín Tironi (Department Head + FAIR Director)
+    email: TBD
+  executor:
+    name: Vivanco research portfolio + Fab Lab Austral
+    role: operational hub — Smart Citizen Santiago + Bioplástico Territorial extensions
+    primary: Tomás Vivanco
+    email: TBD
+  technical:
+    name: FAIR (Núcleo Milenio Futures of AI Research)
+    role: methodology + reflexive AI-governance partner
+    primary: Martín Tironi (Director, FAIR)
+    secondary: Claudia López (UTFSM, technical AI / ML lead — confirmation pending)
+    email: TBD
+  reflexive_research:
+    name: FAIR — year-3 critical case study deliverable
+    role: planned open critical case study of PLANETAI as state-funded AI infra project
+    status: scope_to_confirm_with_tironi
+
+network_vs_pilot:
+  network_committed:
+    - Four-pillar × five-scale matrix (Full Stack Metrics Framework)
+    - Two pre-registered hypotheses (H_0-T, H_0-A)
+    - Shared connectors-yaml schema for data sources
+    - Hub-as-harvester operational model (CENTRINNO Hub Toolkit substrate)
+  pilot_specific:
+    - Dual-bioregion testing range (Santiago Metro + Patagonia / Tierra del Fuego via Fab Lab Austral)
+    - Bioplástico Territorial + Smart Citizen Santiago lineage extension
+    - FAIR reflexive year-3 critical-case-study as deliverable
+    - Methodology for measuring informal-economy contribution to H_0-T
+
+data_sources:
+  primary:
+    - santiago-metro-open-data
+    - smart-citizen-santiago
+  secondary:
+    - bioplastico-territorial
+    - chilecompra
+    - laklems
+    - sma-environmental-intelligence
+  earth_system:
+    - planetary-tier-foundation-models
+
+hypotheses:
+  H_0_T:
+    in_grant_unit: Santiago pilot district anchored by Vivanco's Smart Citizen Santiago infrastructure
+    signal_source: Santiago Metropolitan open data + Bioplástico Territorial biomass map + sensor campaigns
+    sensor_campaigns:
+      - smart-citizen-santiago-extension
+      - peri-urban-pm-density
+      - patagonia-sub-antarctic-baseline
+    informal_economy_methodology: |
+      Bioplástico Territorial-style territorial mapping +
+      community-based recipe collection — to be co-designed with
+      Vivanco + FAIR pre-kickoff.
+  H_0_A:
+    procurement_source: ChileCompra national procurement portal
+
+open_asks:
+  - id: santiago-informal-economy-methodology-design
+    asks_of: Tomás Vivanco + Martín Tironi
+    by: 2026-06-30
+    status: pending
+  - id: fair-reflexive-deliverable-confirmation
+    asks_of: Martín Tironi + FAIR PIs
+    by: 2026-06-15
+    status: pending
+  - id: fair-named-technical-ml-lead
+    asks_of: Claudia López (UTFSM) + Martín Tironi (FAIR)
+    by: 2026-06-30
+    status: pending
+  - id: fab-lab-austral-inclusion-scope
+    asks_of: Tomás Vivanco + Tomás Diez
+    by: 2026-06-15
+    status: pending
+  - id: santiago-metro-open-data-depth-check
+    asks_of: Santiago Metropolitan Region open-data team (via UC Diseño)
+    by: 2026-07-15
+    status: pending
+
+validation:
+  last_full_review: null
+  sections:
+    overview:
+      status: pending
+      validated_by: []
+      open_questions: []
+    whats-running:
+      status: pending
+      validated_by: []
+      open_questions: []
+    data-access:
+      status: pending
+      validated_by: []
+      open_questions: []
+    open-questions:
+      status: pending
+      validated_by: []
+      open_questions: []
+    proposed-pilot-scope:
+      status: pending
+      validated_by: []
+      open_questions: []
+
+related_decisions:
+  - 2026-04-27_pillar-correction
+  - 2026-04-27_scales-correction
+  - 2026-04-28_pito-dido-narrative-layer
+  - 2026-05-01_hub-architecture-12-to-4

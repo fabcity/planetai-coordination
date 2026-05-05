@@ -1,0 +1,115 @@
+slug: boston
+display_name: Boston
+status: P1
+host_state: USA / Massachusetts
+time_zone: EST / EDT (UTC-5 / -4)
+
+contacts:
+  coordinator:
+    name: Fab Foundation
+    role: institutional host + global HQ at Fab Hub Kendall
+    primary: Sherry Lassiter
+    email: TBD
+  executor:
+    name: Fab Hub Kendall
+    role: operational hub — 325 Main Street, Cambridge
+    primary: TBD (Hub Kendall lead)
+    email: TBD
+  technical:
+    name: MIT CBA (Center for Bits and Atoms)
+    role: methodology partner — distributed-manufacturing research
+    primary: Neil Gershenfeld (institutional)
+    secondary: TBD (named technical lead pending)
+    email: TBD
+    affiliation_note: |
+      Gershenfeld is the institutional anchor; the named day-to-day
+      technical lead needs to be confirmed jointly with CBA.
+  programmes:
+    name: Academany
+    role: Fab Academy + Fabricademy + Bio Academy + Fab All-In
+    primary: Anna Kaziunas France
+    email: TBD
+
+network_vs_pilot:
+  network_committed:
+    - Four-pillar × five-scale matrix (Full Stack Metrics Framework)
+    - Two pre-registered hypotheses (H_0-T, H_0-A)
+    - Shared connectors-yaml schema for data sources
+    - Hub-as-harvester operational model (CENTRINNO Hub Toolkit substrate)
+  pilot_specific:
+    - Fab Hub Kendall as central anchor with distributed sensor co-design
+    - FAB26 + Fab City Summit as project launch convening (27–31 July 2026)
+    - Fab Foundation network-scale data (registry, alumni) as cross-pilot contribution
+    - MIT CBA methodology partnership
+
+data_sources:
+  primary: analyze-boston
+  secondary:
+    - massgis
+    - fablabs-io
+    - academany-records
+  network_contribution:
+    - global-fab-lab-registry
+    - fab-academy-alumni-records
+
+hypotheses:
+  H_0_T:
+    in_grant_unit: Boston pilot district anchored by Fab Hub Kendall + Cambridge / Somerville Fab Lab partners
+    signal_source: Analyze Boston + MassGIS + community sensor fleet (to be built)
+    sensor_campaigns:
+      - hub-kendall-anchor-deployment
+      - somerville-cambridge-distributed-build
+  H_0_A:
+    procurement_source: TBD (Boston / Cambridge / Somerville municipal procurement)
+
+open_asks:
+  - id: boston-sensor-fleet-locus
+    asks_of: Sherry Lassiter (Fab Foundation) + Boston-area Fab Lab community
+    by: 2026-06-30
+    status: pending
+  - id: mit-cba-named-technical-lead
+    asks_of: MIT CBA via Sherry Lassiter intro
+    by: 2026-06-15
+    status: pending
+  - id: fab26-programme-integration
+    asks_of: FAB26 organising committee + Sherry Lassiter
+    by: 2026-06-30
+    status: pending
+  - id: analyze-boston-h0t-depth-check
+    asks_of: City of Boston Analyze Boston team (via Fab Foundation)
+    by: 2026-07-15
+    status: pending
+  - id: boston-area-fab-lab-partner-map
+    asks_of: Fab Foundation + Academany alumni network
+    by: 2026-07-15
+    status: pending
+
+validation:
+  last_full_review: null
+  sections:
+    overview:
+      status: pending
+      validated_by: []
+      open_questions: []
+    whats-running:
+      status: pending
+      validated_by: []
+      open_questions: []
+    data-access:
+      status: pending
+      validated_by: []
+      open_questions: []
+    open-questions:
+      status: pending
+      validated_by: []
+      open_questions: []
+    proposed-pilot-scope:
+      status: pending
+      validated_by: []
+      open_questions: []
+
+related_decisions:
+  - 2026-04-27_pillar-correction
+  - 2026-04-27_scales-correction
+  - 2026-04-28_pito-dido-narrative-layer
+  - 2026-05-01_hub-architecture-12-to-4
