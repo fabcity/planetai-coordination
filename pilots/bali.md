@@ -6,6 +6,8 @@ This page is partner-validated. Each section below has its own status, action li
 
 ## Overview
 
+> **Live preview available.** A Stage-2 mockup of the Banjar Serangan hyperlocal dashboard — the first instantiation of the matryoshka IA decisions for this pilot — is open for partner review. **[View the Serangan Hyperlocal Dashboard preview &rarr;](../previews/serangan-hyperlocal.html)**. Specific feedback asks (trust-ring UX, tier-label localization, Indonesian translation, sensor-integration cadence) are listed on the preview page.
+
 Bali is one of the four bioregional pilots in PLANETAI, alongside Barcelona, Boston, and Santiago de Chile. Within the program's pilot stratification it is currently classified P2 — meaning it has lower instrumented sensor density than the European/American pilots at start, but a notably stronger sovereign-data foundation and a coalition-grade institutional partnership infrastructure to plug into.
 
 The pilot is designed to mirror the governance pattern that the **Green Hydrogen Village (Serangan)** project has already validated in practice: **CAST Foundation** coordinates and administers, **MDG / Fab Lab Bali** executes, and **IT Del's Bali office** (led by Ben Koo) runs the technical AI and data layer, with IT Del's Sumatra campus providing national-scale compute backbone. All three are members of the **Bali Net Zero Emission Coalition** (with Azura Indonesia, IESR, NEN Indonesia, and WRI Indonesia as secretariat).
@@ -55,6 +57,6 @@ Governance mirrors the Green Hydrogen Village pattern: CAST coordinates / admini
 
 The data flow is bilingual by design: data ingested at the Bali bioregion server (IT Del) in its native Tri Hita Karana taxonomy with Indonesian metadata preserved verbatim; mapping to the four-pillar framework applied only at the cross-pilot federation layer; cross-pilot results re-rendered through Tri Hita Karana before delivery to Balinese municipal liaisons. This is the operational form of CARE-aligned sovereignty-by-architecture at the data-taxonomy layer.
 
-Partnership ambitions extend the Bali Net Zero 2045 Coalition's existing MEL framework with sensor campaigns, federated SLM instantiation, and the matryoshka hyperlocal dashboard prototype (see the [Stage 1 IA decision](../decisions/2026-05-04_hyperlocal-dashboard-ia-stage1.html), with Bali as the anchor pilot for Stage 2 mockups).
+Partnership ambitions extend the Bali Net Zero 2045 Coalition's existing MEL framework with sensor campaigns, federated SLM instantiation, and the matryoshka hyperlocal dashboard prototype (see the [Stage 1 IA decision](../decisions/2026-05-04_hyperlocal-dashboard-ia-stage1.html), with Bali as the anchor pilot for Stage 2 mockups — a [live preview is available for the Banjar Serangan instance](../previews/serangan-hyperlocal.html)).
 
 The pilot's **success is not** "Bali matches Barcelona's instrumentation density." It is "Bali demonstrates that sovereign provincial data + cosmological taxonomy + customary-authority partnership produces a measurement substrate as scientifically valid — and methodologically distinct — as the European pilot's." That distinctness is the Bali contribution, not a fallback.
