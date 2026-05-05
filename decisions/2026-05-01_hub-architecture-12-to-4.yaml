@@ -1,0 +1,64 @@
+id: 2026-05-01_hub-architecture-12-to-4
+title: "Hub architecture: hubs are not measurement targets — the district is"
+date: 2026-05-01
+status: locked
+scope: program
+supersedes: []
+superseded_by: null
+authors:
+  - tomas.diez
+attribution:
+  - kind: human
+    name: Tomas Diez
+    role: directed; corrected hub-as-proxy framing
+  - kind: ai-subagent
+    model: claude-opus
+    surface: cowork
+    role: surfaced that fab labs do not produce community-scale throughput data
+prior_state: |
+  Earlier framings (in places) treated 12 community hubs as themselves
+  the measurement target — fab-lab logs functioning as a proxy for the
+  district's waste / energy / material throughput.
+change: |
+  Four hubs, one per pilot (Barcelona · Boston · Santiago · Bali).
+  Hubs are NOT measurement targets. They are:
+  (1) Harvesters of municipal/district open data
+      (Open Data BCN, Analyze Boston, Santiago Metropolitan Region
+      portals, Bali Satu Data).
+  (2) Sensor-campaign operators filling gaps where municipal data
+      is silent (≥30-day colocations + longer-term deployments).
+  (3) Local-intelligence instantiators running quantised SLMs with
+      federated weights and Matryoshka embeddings.
+
+  H₀-T signal source = municipal/district open data, harvested by
+  the four hubs and ingested into bioregion servers. Treatment unit
+  is the district anchored by the hub. Synthetic control is built
+  per pilot from similar non-hub districts.
+
+  In-grant test = community/district scale. Bioregional H₀-T is a
+  designed post-grant deliverable on month-60+ data.
+reasoning: |
+  Fab labs do not produce community-scale throughput data; the
+  district does. Conflating the two created an unfixable
+  measurement-design problem and would have been visible to any
+  serious reviewer of the methodology.
+
+  The corrected mechanism — hubs as the human + technical
+  infrastructure that turns sovereign municipal data into a
+  federated learning substrate, with sensor campaigns filling gaps —
+  preserves PLANETAI's distinctive contribution (federated AI causal
+  inference at bioregional scale) without pretending fab-lab logs
+  are a waste-proxy. It also aligns the experimental unit with the
+  unit at which the cities themselves report data, which is what
+  partner cities can actually contribute.
+artifacts_changed:
+  - planetai_publish/core-ideas-paper.md
+  - planetai_publish/observatory/index.html
+review:
+  required_acks: []
+  acks_received: []
+  closes: null
+related_decisions:
+  - 2026-04-28_bali-three-source-reframe
+  - 2026-05-04_hyperlocal-dashboard-ia-stage1
+discussion_url: null

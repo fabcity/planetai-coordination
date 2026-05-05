@@ -1,0 +1,48 @@
+id: 2026-04-27_pillar-correction
+title: "Four pillars: Production/Consumption/Circular Flows → Environmental/Social/Economic/Governance"
+date: 2026-04-27
+status: locked
+scope: network
+supersedes: []
+superseded_by: null
+authors:
+  - tomas.diez
+attribution:
+  - kind: human
+    name: Tomas Diez
+    role: directed
+  - kind: ai-subagent
+    model: claude-opus
+    surface: cowork
+    role: surfaced inconsistency, drafted memo
+prior_state: |
+  Earlier PLANETAI text framed the four pillars as Production /
+  Consumption / Circular Flows / (one more) — a Tomas-flavoured
+  variation that did not match the Full Stack Metrics Framework
+  [Vivanco 2024] underlying the methodology stack.
+change: |
+  Canonical four pillars are Environmental, Social, Economic, Governance —
+  exactly as published in the Full Stack Metrics Framework and as
+  applied by every measurement instance in the project (observatory
+  panels, paper, Vivanco methodology note).
+reasoning: |
+  The Full Stack Metrics Framework is the operational substrate for
+  PLANETAI's measurement layer. Carrying a parallel pillar vocabulary
+  in narrative text introduced silent drift between methodology and
+  story — easy to miss in review, expensive to fix later. Aligning to
+  the published framework before the v14 submission window prevented
+  reviewer confusion and locked vocabulary across paper + observatory
+  + application form.
+artifacts_changed:
+  - PLANETAI_Observatory_v0/docs/PLANETAI_CoreIdeas_April2026.md
+  - planetai_publish/core-ideas-paper.md
+  - planetai_publish/observatory/index.html
+review:
+  required_acks: []
+  acks_received: []
+  closes: null
+  note: locked retroactively as canonical naming
+related_decisions:
+  - 2026-04-27_scales-correction
+  - 2026-04-28_pito-dido-narrative-layer
+discussion_url: null

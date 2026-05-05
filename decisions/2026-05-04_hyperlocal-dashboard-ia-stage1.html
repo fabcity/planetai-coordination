@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hyperlocal dashboard IA Stage 1 — five locked architectural decisions — PLANETAI Coordination</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="lockup" href="../index.html" style="border-bottom:none;">
+      <span class="lockup__brand">
+        <span class="lockup__eyebrow">FAB CITY</span>
+        <span class="lockup__title">PLANETAI</span>
+      </span>
+      <span class="lockup__meta">· Coordination · v0.1</span>
+    </a>
+    <nav class="site-nav" aria-label="primary">
+      <a href="../index.html" class="">Home</a>
+      <a href="../about.html" class="">About</a>
+      <a href="../decisions/index.html" class="is-active">Decisions</a>
+      <a href="../tracks/index.html" class="">Tracks</a>
+      <a href="../reviews/index.html" class="">Reviews</a>
+    </nav>
+  </div>
+</header>
+<main>
+<a href="index.html" class="mono" style="font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--ink-muted);border-bottom:none;">&larr; all decisions</a>
+<div class="decision__eyebrow">DECISION · 2026-05-04 · <span class="pill" data-status="locked">locked</span></div>
+<h1>Hyperlocal dashboard IA Stage 1 — five locked architectural decisions</h1>
+<dl class="decision__meta"><dt>Scope</dt><dd><span class="scope-tag">program</span></dd><dt>Authors</dt><dd>tomas.diez</dd></dl>
+<div class="section"><h2>Attribution</h2>
+<div class="attribution-block"><div class="item"><span class="kind">human</span><span><strong>Tomas Diez</strong> · directed; resolved five design questions</span></div><div class="item"><span class="kind ai">ai-subagent</span><span><strong>claude-opus</strong> · cowork — drafted Stage 1 IA sketch</span></div></div>
+</div>
+<div class="section"><h2>Prior state</h2><p>No documented information architecture for the local-hubs<br>dashboard. Open architectural questions: aggregation invariant<br>across tiers, trust-ring model, GIS substrate, FCI behaviour<br>across scales, federated-AI status visibility.</p></div>
+<div class="section"><h2>Change</h2><p>Five architectural decisions locked for Stage 1:<br>(1) Matryoshka is one schema, five granularities — same four<br>    pillars × five nested scales. Every Community indicator must<br>    declare its upstream join into City. Aggregation invariant<br>    is the load-bearing rule.<br>(2) Hubs produce at Community, subscribe everywhere else —<br>    Planet/Bioregion subscribed (foundation models), Region/City<br>    harvested (open data portals), Community produced (hub<br>    sensor campaigns + GIS + SLMs). Community tier is the only<br>    one that requires PLANETAI&#x27;s presence.<br>(3) Three concentric trust rings on one surface — public<br>    (resident) / council (attested) / hub-ops (credentialed).<br>    Same surface, gradual disclosure on attestation. Maps onto<br>    PKC sovereignty-by-architecture.<br>(4) Hyperlocal GIS as editable substrate, not basemap — hubs ADD<br>    layers, council publishes/restricts, residents read what&#x27;s<br>    permitted. CENTRINNO Cartography blueprint is the<br>    methodological substrate.<br>(5) FCI is matryoshka itself — five FCIs, one per tier, computed<br>    two ways: synthetic-from-above (subscribed/harvested data)<br>    and aggregated-from-below (rolled up from Community).<br>    Divergence Δ between the two is itself a first-class<br>    indicator. Boundary definitions of PITO are tier-specific —<br>    at Planet, PITO is redefined as planetary-boundary<br>    disturbance rate (Richardson 2023). ΔFCI/Δt also matryoshka.</p>
+<p>Five Tomas-resolved design questions (4 May):<br>- Trust rings confirmed (gradual disclosure; revert to tabs only<br>  if mockups fail)<br>- FCI varies across scales (each tier shows its own FCI<br>  prominently; vertical FCI strip is the comparison view)<br>- Customary-authority sign-off as Governance indicator only,<br>  for now (Bali Tri Hita Karana edge case deferred)<br>- Tier names localized per place, fractal approach (universal<br>  schema T0–T4 underneath, place-specific labels on top)<br>- Federated-AI status visible, not hidden (sensor mesh, agent<br>  runs, model weight sync, embedding tier surfaced per-ring)</p></div>
+<div class="section"><h2>Reasoning</h2><p>IA decisions need to survive into Stage 2 (mockups) and Stage 3<br>(data hookup). The matryoshka aggregation invariant and the<br>trust-ring model are easy to silently break in mockup work if<br>not held explicitly. The FCI dual-aggregation (synthetic vs<br>aggregated, divergence as deliverable) is the methodological<br>contribution PLANETAI offers beyond Boeing 2024 — losing it in<br>UI translation would forfeit a load-bearing differentiator.</p></div>
+<div class="section"><h2>Artifacts changed</h2><ul class="artifacts-list"><li>Google AI and Science/PLANETAI_hyperlocal_dashboard_IA_2026-05-04.md</li></ul></div>
+<div class="section"><h2>Review</h2>
+<div class="callout"><p><strong>Required acks (0/3 acks):</strong> cast.foundation, mdg.fab-lab-bali, it-del.ben-koo</p><p><strong>Window closes:</strong> 2026-05-25</p><p>anchor pilot for Stage 2 mockups = Bali (per track-bali-hyperlocal-dashboard)</p></div>
+</div>
+<div class="section"><h2>Related decisions</h2><ul class="related-list"><li><a href="2026-04-27_pillar-correction.html">2026-04-27_pillar-correction</a></li><li><a href="2026-04-27_scales-correction.html">2026-04-27_scales-correction</a></li><li><a href="2026-04-28_pito-dido-narrative-layer.html">2026-04-28_pito-dido-narrative-layer</a></li><li><a href="2026-05-04_bali-org-correction.html">2026-05-04_bali-org-correction</a></li></ul></div>
+</main>
+<footer class="site-footer">
+  <div class="site-footer__inner">
+    <div>
+      Coordination layer for PLANETAI · maintained by Fab City and partners
+    </div>
+    <div>
+      <a href="https://planetai.fab.city/">planetai.fab.city</a> ·
+      <a href="https://planetai.fab.city/core-ideas-paper.pdf">paper</a> ·
+      <a href="https://planetai.fab.city/observatory/">observatory</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

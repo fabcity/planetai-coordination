@@ -1,0 +1,63 @@
+id: 2026-05-04_bali-org-correction
+title: "Bali pilot org structure corrected: MDG = Fab Lab Bali legally; IT Del has Bali office (Ben Koo)"
+date: 2026-05-04
+status: locked
+scope: pilot:bali
+supersedes: []
+superseded_by: null
+authors:
+  - tomas.diez
+attribution:
+  - kind: human
+    name: Tomas Diez
+    role: corrected AI sub-agent's misread same-day
+  - kind: ai-subagent
+    model: claude-opus
+    surface: cowork
+    role: surfaced earlier (incorrect) MDG-visibility-gap critique; retracted same-day after Tomas correction
+prior_state: |
+  Earlier session-day working notes (4 May 2026) flagged MDG as
+  "no public footprint" and IT Del as "remote in Sumatra,
+  ~1500km away." Both readings were wrong.
+change: |
+  Canonical Bali pilot org structure:
+  - MDG = Fab Lab Bali, legally. Meaningful Design Group is the
+    legal entity behind Fab Lab Bali. One operational unit, two
+    names. Treat as a single partner; MDG is the contractual
+    identity, Fab Lab Bali the public-facing brand.
+  - CAST Foundation = coordinator + administrator. Not the executor.
+    Member of Bali Net Zero Emission Coalition.
+  - IT Del has a Bali office, led by Ben Koo. Local technical
+    presence, not remote. Sumatra campus runs LPPM + AI Center of
+    Excellence (Rosni Lumbantoruan) — one of Indonesia's most
+    powerful local AI infrastructures, available as compute backbone.
+  - Ben Koo is the lead author of PKC (Koo, Aliana & Corley 2023,
+    IEEE) — the sovereignty-by-architecture prior cited in
+    PLANETAI canonical references.
+
+  Hydrogen Village (Serangan) governance is the operational pattern
+  for PLANETAI Bali: CAST coordinates / administers, MDG +
+  Fab Lab Bali execute, IT Del Bali (Ben Koo) runs technical AI /
+  data layer with Sumatra as compute backbone.
+reasoning: |
+  MDG appears thin in public web search because its public-facing
+  brand is Fab Lab Bali, not MDG. IT Del's Bali presence and
+  Indonesian AI infrastructure don't surface in English-language
+  search because they aren't the kind of thing a Sumatra-based
+  university campus advertises. The earlier critique was a search
+  artefact, not a real visibility gap. Logging the correction
+  prevents the misread from re-entering future partner-facing
+  materials.
+artifacts_changed:
+  - CLAUDE.md (Bali partner descriptions)
+  - PLANETAI_Observatory_v0/docs/methodology_tri_hita_karana_v0.md (partner-review list)
+review:
+  required_acks: []
+  acks_received: []
+  closes: null
+  note: retraction logged; do not repeat MDG-visibility-gap critique in any forward-facing doc
+related_decisions:
+  - 2026-04-28_bali-three-source-reframe
+  - 2026-05-01_tri-hita-karana-path-b
+  - 2026-05-04_hyperlocal-dashboard-ia-stage1
+discussion_url: null

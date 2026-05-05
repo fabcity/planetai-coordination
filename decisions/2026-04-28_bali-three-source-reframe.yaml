@@ -1,0 +1,70 @@
+id: 2026-04-28_bali-three-source-reframe
+title: "Bali pilot reframed on three coherent sources; Tri Hita Karana mapping as methodological contribution"
+date: 2026-04-28
+status: locked
+scope: pilot:bali
+supersedes: []
+superseded_by: null
+authors:
+  - tomas.diez
+attribution:
+  - kind: human
+    name: Tomas Diez
+    role: directed; pushed back on inventing FLAI when real public data exists
+  - kind: ai-subagent
+    model: claude-opus
+    surface: cowork
+    role: located Bali Satu Data, drafted Tri Hita Karana mapping v0
+prior_state: |
+  Bali pilot framed as "Metroverse doesn't cover Denpasar / Fab Lab
+  Activity Index proxy." Read as apologetic — Bali as the methodological
+  liability of the four pilots.
+change: |
+  Bali pilot grounded in three coherent sources:
+  (1) Bali Satu Data (balisatudata.baliprov.go.id) — official Bali
+      provincial open data portal published by Tim SPBE Diskominfos
+      under Pergub Bali 53/2021. 4,700+ datasets organised through
+      six Tri Hita Karana cosmological categories (Jana, Atma, Jagat,
+      Wana, Danu, Segara). City- and Region-tier throughput indicators,
+      full data sovereignty.
+  (2) WIPO Global Innovation Index 2025 — Indonesia 55/139,
+      8th of 36 upper-middle-income, 12th of 17 in SEAO. Country-level
+      Bioregion-tier peer anchor.
+  (3) Fab Lab Activity Index — Community-tier DIDO-side capacity
+      signal. Per-capita fab lab + Fab Academy + Precious Plastic
+      activity density. Repositioned, NOT removed.
+
+  Tri Hita Karana ↔ four-pillar mapping (v0) published as a
+  methodological contribution — Bali pilot only co-design experiment.
+
+  Bilingual flow: Bali Satu Data → Bali bioregion server (IT Del),
+  ingested in native Tri Hita Karana taxonomy with Indonesian metadata
+  preserved verbatim. Mapping to four-pillar applied at federation,
+  NOT at ingest. Cross-pilot results re-rendered through Tri Hita
+  Karana before delivery to Balinese municipal liaisons.
+reasoning: |
+  Inventing the Fab Lab Activity Index as primary signal (when real
+  provincial open data exists) was both methodologically wrong and
+  strategically weak — it would read to reviewers as "Bali doesn't
+  have data we can use." Bali Satu Data exists, is sovereign, and
+  is organised through a cosmological taxonomy that PLANETAI's
+  CARE-aligned sovereignty-by-architecture stance can leverage as
+  contribution rather than constraint. Reframing FLAI as
+  Community-tier DIDO-side capacity signal — not ECI substitute —
+  preserves what FLAI actually measures (distributed-manufacturing
+  capacity at neighbourhood scale).
+artifacts_changed:
+  - planetai_publish/core-ideas-paper.md (Bali pilot section, References, Open questions)
+  - planetai_publish/observatory/index.html (Bioregions Bali, Matrix sub-tab, Stories)
+  - PLANETAI_Observatory_v0/docs/methodology_tri_hita_karana_v0.md
+review:
+  required_acks: [cast.foundation, mdg.fab-lab-bali, it-del.ben-koo]
+  acks_received: []
+  closes: 2026-06-30
+  note: |
+    v0 mapping documented; partner review with CAST + MDG + IT Del.
+    Customary-authority sign-off required for publication (Path B).
+related_decisions:
+  - 2026-05-01_tri-hita-karana-path-b
+  - 2026-05-04_bali-org-correction
+discussion_url: null

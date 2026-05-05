@@ -1,0 +1,81 @@
+id: 2026-05-04_hyperlocal-dashboard-ia-stage1
+title: "Hyperlocal dashboard IA Stage 1 — five locked architectural decisions"
+date: 2026-05-04
+status: locked
+scope: program
+supersedes: []
+superseded_by: null
+authors:
+  - tomas.diez
+attribution:
+  - kind: human
+    name: Tomas Diez
+    role: directed; resolved five design questions
+  - kind: ai-subagent
+    model: claude-opus
+    surface: cowork
+    role: drafted Stage 1 IA sketch
+prior_state: |
+  No documented information architecture for the local-hubs
+  dashboard. Open architectural questions: aggregation invariant
+  across tiers, trust-ring model, GIS substrate, FCI behaviour
+  across scales, federated-AI status visibility.
+change: |
+  Five architectural decisions locked for Stage 1:
+  (1) Matryoshka is one schema, five granularities — same four
+      pillars × five nested scales. Every Community indicator must
+      declare its upstream join into City. Aggregation invariant
+      is the load-bearing rule.
+  (2) Hubs produce at Community, subscribe everywhere else —
+      Planet/Bioregion subscribed (foundation models), Region/City
+      harvested (open data portals), Community produced (hub
+      sensor campaigns + GIS + SLMs). Community tier is the only
+      one that requires PLANETAI's presence.
+  (3) Three concentric trust rings on one surface — public
+      (resident) / council (attested) / hub-ops (credentialed).
+      Same surface, gradual disclosure on attestation. Maps onto
+      PKC sovereignty-by-architecture.
+  (4) Hyperlocal GIS as editable substrate, not basemap — hubs ADD
+      layers, council publishes/restricts, residents read what's
+      permitted. CENTRINNO Cartography blueprint is the
+      methodological substrate.
+  (5) FCI is matryoshka itself — five FCIs, one per tier, computed
+      two ways: synthetic-from-above (subscribed/harvested data)
+      and aggregated-from-below (rolled up from Community).
+      Divergence Δ between the two is itself a first-class
+      indicator. Boundary definitions of PITO are tier-specific —
+      at Planet, PITO is redefined as planetary-boundary
+      disturbance rate (Richardson 2023). ΔFCI/Δt also matryoshka.
+
+  Five Tomas-resolved design questions (4 May):
+  - Trust rings confirmed (gradual disclosure; revert to tabs only
+    if mockups fail)
+  - FCI varies across scales (each tier shows its own FCI
+    prominently; vertical FCI strip is the comparison view)
+  - Customary-authority sign-off as Governance indicator only,
+    for now (Bali Tri Hita Karana edge case deferred)
+  - Tier names localized per place, fractal approach (universal
+    schema T0–T4 underneath, place-specific labels on top)
+  - Federated-AI status visible, not hidden (sensor mesh, agent
+    runs, model weight sync, embedding tier surfaced per-ring)
+reasoning: |
+  IA decisions need to survive into Stage 2 (mockups) and Stage 3
+  (data hookup). The matryoshka aggregation invariant and the
+  trust-ring model are easy to silently break in mockup work if
+  not held explicitly. The FCI dual-aggregation (synthetic vs
+  aggregated, divergence as deliverable) is the methodological
+  contribution PLANETAI offers beyond Boeing 2024 — losing it in
+  UI translation would forfeit a load-bearing differentiator.
+artifacts_changed:
+  - Google AI and Science/PLANETAI_hyperlocal_dashboard_IA_2026-05-04.md
+review:
+  required_acks: [cast.foundation, mdg.fab-lab-bali, it-del.ben-koo]
+  acks_received: []
+  closes: 2026-05-25
+  note: anchor pilot for Stage 2 mockups = Bali (per track-bali-hyperlocal-dashboard)
+related_decisions:
+  - 2026-04-27_pillar-correction
+  - 2026-04-27_scales-correction
+  - 2026-04-28_pito-dido-narrative-layer
+  - 2026-05-04_bali-org-correction
+discussion_url: null

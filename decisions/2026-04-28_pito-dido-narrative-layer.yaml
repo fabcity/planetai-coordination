@@ -1,0 +1,64 @@
+id: 2026-04-28_pito-dido-narrative-layer
+title: "PITO/DIDO is the narrative compression layer over the four-pillar matrix, not a replacement"
+date: 2026-04-28
+status: locked
+scope: program
+supersedes: []
+superseded_by: null
+authors:
+  - tomas.diez
+attribution:
+  - kind: human
+    name: Tomas Diez
+    role: directed; sole author of PITO/DIDO foundational framing (2016)
+  - kind: ai-subagent
+    model: claude-opus
+    surface: cowork
+    role: drafted methodology note v0
+prior_state: |
+  Tomas proposed structuring the Fab City Index around PITO and DIDO
+  sub-indices. Open question: do they replace the four-pillar ×
+  five-scale matrix, or compress it?
+change: |
+  PITO and DIDO are the narrative compression layer on top of the
+  four-pillar × five-scale matrix — not a replacement.
+  PITO (Products In, Trash Out) — metabolic signature of linear-extractive
+  city; throughput, imports, waste outflows. Operationalises H₀-T.
+  DIDO (Data In, Data Out) — metabolic signature of regenerative-distributed
+  city; open data, fab-lab capacity, transparency, distributed
+  manufacturing.
+  Formula: FCI_t = DIDO_t · (1 − PITO_t) · κ_t (snapshot);
+  ΔFCI/Δt is the trajectory PLANETAI actually measures.
+  κ = coupling coefficient, operationalises H₀-A (action latency).
+reasoning: |
+  Mayors and ministers cannot hold 20 cells in their head; the
+  four-pillar × five-scale matrix is the calculator, not the
+  dashboard. PITO/DIDO is canonical Fab City vocabulary from Tomas
+  Diez's founding-period writing (Fab City Whitepaper, 2016). Using
+  it as the narrative axis preserves methodological resolution
+  (matrix as instrument) while making the story carryable.
+
+  Boeing's 37/100 (2024) and Utopies' 37.58/100 (2018) for the best
+  Western city are both recovered as the single-cell
+  (Economic × Region/City), snapshot, κ-implicit projection of the
+  full FCI. Same instrument, less resolution. This recovery is the
+  lineage defence for v18.
+
+  Bali under PITO/DIDO is high-DIDO / partial-PITO — a feature, not
+  a Metroverse-coverage liability. The DIDO side is computable from
+  Smart Citizen, fab labs, and community-council infrastructure
+  without customs data.
+artifacts_changed:
+  - PLANETAI_Observatory_v0/docs/methodology_pito_dido_v0.md
+  - planetai_publish/core-ideas-paper.md (Methods section)
+  - planetai_publish/observatory/index.html (Matrix sub-tab)
+review:
+  required_acks: [tomas.vivanco]
+  acks_received: []
+  closes: null
+  open_review: review-pito-dido-cell-weights
+related_decisions:
+  - 2026-04-27_pillar-correction
+  - 2026-04-27_scales-correction
+  - 2026-04-28_bali-three-source-reframe
+discussion_url: null

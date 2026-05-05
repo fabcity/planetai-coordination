@@ -1,0 +1,62 @@
+id: 2026-05-01_tri-hita-karana-path-b
+title: "Tri Hita Karana mapping is Bali co-design only; publication conditional on customary-authority sign-off"
+date: 2026-05-01
+status: locked
+scope: pilot:bali
+supersedes: []
+superseded_by: null
+authors:
+  - tomas.diez
+attribution:
+  - kind: human
+    name: Tomas Diez
+    role: directed
+  - kind: ai-subagent
+    model: claude-opus
+    surface: cowork
+    role: drafted Path B framing
+prior_state: |
+  The Tri Hita Karana ↔ four-pillar mapping had been read in places
+  as a "methodological export" — a network-level contribution
+  PLANETAI would publish across all pilots.
+change: |
+  Path B framing locked across all PLANETAI surfaces:
+  - Bali pilot only
+  - Co-design experiment
+  - Publication conditional on customary-authority sign-off as a
+    binding precondition
+
+  The phrase "methodological export" is retired in any
+  PLANETAI-network-facing text.
+
+  Path B operational sequence:
+  - v1 drafted with CAST + MDG / Fab Lab Bali + IT Del
+  - Customary-authority review scheduled for v2 (banjar adat,
+    desa adat, or PHDI scholar — to be named in v2)
+  - Methodology paper submitted only after sign-off obtained.
+reasoning: |
+  Cosmological taxonomies are not methodological commodities. A
+  Western-led research program framing Tri Hita Karana as something
+  to "export" across pilots — without binding customary-authority
+  sign-off — would be both ethically wrong and strategically
+  fragile (PHDI / banjar adat / desa adat objection at any point in
+  publication would force retraction).
+
+  Path B makes customary-authority sign-off a precondition rather
+  than a courtesy, and makes the contribution Bali-scoped — which
+  is also where the cosmology actually applies.
+artifacts_changed:
+  - planetai_publish/core-ideas-paper.md (Open questions, Bali pilot)
+  - PLANETAI_Observatory_v0/docs/methodology_tri_hita_karana_v0.md
+review:
+  required_acks: [cast.foundation, mdg.fab-lab-bali, it-del.ben-koo]
+  acks_received: []
+  closes: 2026-06-30
+  note: customary-authority naming gates Path B itself
+gating_questions:
+  - Customary authority for Tri Hita Karana sign-off — banjar adat,
+    desa adat, or PHDI scholar — not yet named (deferred to v2)
+related_decisions:
+  - 2026-04-28_bali-three-source-reframe
+  - 2026-05-04_bali-org-correction
+discussion_url: null
