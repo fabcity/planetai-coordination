@@ -22,3 +22,7 @@ venv/
 # Cloudflare Wrangler
 .wrangler/
 node_modules/
+
+.dev.vars*
+!.dev.vars.example
+!.env.example
