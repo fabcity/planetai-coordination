@@ -5,9 +5,10 @@ name: build
 # action does not retrigger itself. Cloudflare Pages auto-deploys the
 # resulting commit.
 #
-# Net effect: contributors only edit YAML (via the GitHub web UI or a PR);
-# HTML rebuilds and the live site updates without anyone running the
-# build script locally.
+# Dependencies (pyyaml, markdown) are pinned inline rather than read from
+# requirements.txt, so the workflow does not depend on a particular file
+# being present in the repo. Local devs can still use requirements.txt
+# (kept in the repo for that purpose); it just is not load-bearing here.
 
 on:
   push:
@@ -35,11 +36,9 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-          cache: pip
-          cache-dependency-path: requirements.txt
 
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: pip install --upgrade "pyyaml>=6.0" "markdown>=3.5"
 
       - name: Build site
         run: python3 scripts/build.py

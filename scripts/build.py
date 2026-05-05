@@ -137,6 +137,8 @@ LAYOUT = """<!doctype html>
       <a href="{root}index.html" class="{home_active}">Home</a>
       <a href="{root}about.html" class="{about_active}">About</a>
       <a href="{root}decisions/index.html" class="{decisions_active}">Decisions</a>
+      <a href="{root}pilots/index.html" class="{pilots_active}">Pilots</a>
+      <a href="{root}previews/index.html" class="{previews_active}">WIP</a>
       <a href="{root}tracks/index.html" class="{tracks_active}">Tracks</a>
       <a href="{root}reviews/index.html" class="{reviews_active}">Reviews</a>
     </nav>
@@ -172,6 +174,8 @@ def render_layout(*, title: str, body: str, root: str = "../",
         home_active="is-active" if active == "home" else "",
         about_active="is-active" if active == "about" else "",
         decisions_active="is-active" if active == "decisions" else "",
+        pilots_active="is-active" if active == "pilots" else "",
+        previews_active="is-active" if active == "previews" else "",
         tracks_active="is-active" if active == "tracks" else "",
         reviews_active="is-active" if active == "reviews" else "",
     )
@@ -752,6 +756,230 @@ def build_pilots() -> int:
 
 
 # ---------------------------------------------------------------------------
+# previews — work-in-progress prototypes partners can view + give feedback on
+# ---------------------------------------------------------------------------
+
+PREVIEW_STATUS_LABELS = {
+    "early-sketch":          "early sketch",
+    "stage-1-ia":            "stage-1 IA",
+    "stage-2-mockup":        "stage-2 mockup",
+    "functional-prototype":  "functional prototype",
+    "near-ready":            "near-ready",
+    "shipped":               "shipped",
+}
+
+
+def render_preview_detail(slug: str, p: dict) -> str:
+    display = p.get("display_name") or slug.title()
+    status = p.get("status", "")
+    status_label = PREVIEW_STATUS_LABELS.get(status, status)
+    short = p.get("short_desc", "")
+    notes = p.get("notes", "")
+    live_url = p.get("live_url")
+    source_path = p.get("source_path")
+    source_repo = p.get("source_repo", "")
+    related_track = p.get("related_track")
+    related_decisions = p.get("related_decisions") or []
+
+    body_parts: list[str] = []
+    body_parts.append(
+        '<a href="index.html" class="mono" style="font-size:11px;'
+        'letter-spacing:0.06em;text-transform:uppercase;color:var(--ink-muted);'
+        'border-bottom:none;">&larr; all WIP</a>'
+    )
+    body_parts.append(
+        f'<div class="decision__eyebrow">WORK IN PROGRESS &middot; '
+        f'<span class="section-status" data-status="open">{esc(status_label)}</span></div>'
+    )
+    body_parts.append(f'<h1>{esc(display)}</h1>')
+
+    if short:
+        body_parts.append(f'<p class="framing__lead">{paragraphs(short)[3:-4]}</p>')
+
+    # Live + source CTAs
+    cta_links = []
+    if live_url:
+        cta_links.append(
+            f'<a class="primary" href="{esc(live_url)}">View live preview &rarr;</a>'
+        )
+    if source_path and source_repo:
+        src_url = f"https://github.com/fabcity/{source_repo}/blob/main/{source_path}"
+        cta_links.append(f'<a href="{esc(src_url)}">Source on GitHub</a>')
+    if cta_links:
+        body_parts.append(
+            f'<div class="pilot-section__actions" style="margin:16px 0 32px;">'
+            f'{"".join(cta_links)}</div>'
+        )
+
+    # Meta
+    meta_rows = []
+    opened = p.get("opened")
+    last_updated = p.get("last_updated")
+    if opened:
+        meta_rows.append(f"<dt>Opened</dt><dd>{esc(opened)}</dd>")
+    if last_updated:
+        meta_rows.append(f"<dt>Last updated</dt><dd>{esc(last_updated)}</dd>")
+    owners = p.get("owners") or {}
+    if owners.get("lead"):
+        meta_rows.append(f"<dt>Lead</dt><dd>{esc(owners['lead'])}</dd>")
+    if owners.get("pilot_anchor"):
+        meta_rows.append(f"<dt>Pilot anchor</dt><dd>{esc(owners['pilot_anchor'])}</dd>")
+    partners = owners.get("partners_named") or []
+    if partners:
+        meta_rows.append(
+            f"<dt>Partners</dt><dd>{'<br>'.join(esc(x) for x in partners)}</dd>"
+        )
+    if related_track:
+        meta_rows.append(
+            f'<dt>Related track</dt><dd><span class="scope-tag">{esc(related_track)}</span></dd>'
+        )
+    if meta_rows:
+        body_parts.append(
+            f'<dl class="pilot-meta">{"".join(meta_rows)}</dl>'
+        )
+
+    # Asks-of-reviewers
+    asks = p.get("asks") or {}
+    looking = asks.get("looking_for_feedback_on") or []
+    not_ready = asks.get("not_ready_for") or []
+    if looking or not_ready:
+        cols = []
+        if looking:
+            items = "".join(f"<li>{esc(x)}</li>" for x in looking)
+            cols.append(
+                f'<div><h3 style="font-family:var(--font-mono);'
+                f'font-size:11px;letter-spacing:0.05em;'
+                f'text-transform:uppercase;color:var(--fc-blue);">'
+                f'Looking for feedback on</h3><ul style="padding-left:18px;">'
+                f'{items}</ul></div>'
+            )
+        if not_ready:
+            items = "".join(f"<li>{esc(x)}</li>" for x in not_ready)
+            cols.append(
+                f'<div><h3 style="font-family:var(--font-mono);'
+                f'font-size:11px;letter-spacing:0.05em;'
+                f'text-transform:uppercase;color:var(--status-proposed);">'
+                f'Not ready for</h3><ul style="padding-left:18px;">'
+                f'{items}</ul></div>'
+            )
+        body_parts.append(
+            f'<div style="display:grid;grid-template-columns:'
+            f'repeat(auto-fit,minmax(280px,1fr));gap:24px;'
+            f'margin:24px 0 32px;">{"".join(cols)}</div>'
+        )
+
+    if notes:
+        body_parts.append(
+            f'<div class="callout">{paragraphs(notes)}</div>'
+        )
+
+    # Feedback action buttons
+    title_q = quote_plus(f"[WIP / {display}] ")
+    feedback_url = f"{REPO_URL}/issues/new?title={title_q}&labels=wip-feedback"
+    body_parts.append(
+        f'<div class="pilot-section__actions" style="margin-top:32px;">'
+        f'<a class="primary" href="{esc(feedback_url)}">File feedback on this preview</a>'
+        + (f'<a href="{esc(live_url)}">View live preview &rarr;</a>' if live_url else '')
+        + '</div>'
+    )
+
+    # Related
+    if related_decisions:
+        items = "".join(
+            f'<li><a href="../decisions/{esc(r)}.html">{esc(r)}</a></li>'
+            for r in related_decisions
+        )
+        body_parts.append(
+            f'<div class="section"><h2>Related decisions</h2>'
+            f'<ul class="related-list">{items}</ul></div>'
+        )
+
+    body_parts.append(edit_link(f"previews/{slug}.yaml",
+                                label="Edit this preview entry on GitHub"))
+    body_parts.append(CONTRIBUTE_FOOTER)
+
+    return render_layout(
+        title=f"WIP — {display}",
+        body="\n".join(body_parts),
+        root="../",
+        active="previews",
+    )
+
+
+def render_previews_index(previews: list[tuple[str, dict]]) -> str:
+    cards = []
+    # sort: most recently updated first
+    previews_sorted = sorted(
+        previews,
+        key=lambda x: x[1].get("last_updated") or x[1].get("opened") or "",
+        reverse=True,
+    )
+    for slug, p in previews_sorted:
+        display = p.get("display_name") or slug.title()
+        status = p.get("status", "")
+        status_label = PREVIEW_STATUS_LABELS.get(status, status)
+        short = p.get("short_desc", "").strip()
+        # use only the first paragraph as the card teaser
+        teaser = re.split(r"\n\s*\n", short, maxsplit=1)[0] if short else ""
+        last_updated = p.get("last_updated") or p.get("opened") or ""
+        track = p.get("related_track", "")
+        cards.append(f"""
+<div class="pilot-card">
+  <div class="name"><a href="{esc(slug)}.html">{esc(display)}</a></div>
+  <div class="meta">
+    <span class="section-status" data-status="open">{esc(status_label)}</span>
+    {f' &middot; updated {esc(last_updated)}' if last_updated else ''}
+    {f' &middot; track: {esc(track)}' if track else ''}
+  </div>
+  <div class="progress">{esc(teaser)}</div>
+</div>""")
+
+    body = f"""
+<a href="../index.html" class="mono" style="font-size:11px;
+letter-spacing:0.06em;text-transform:uppercase;color:var(--ink-muted);
+border-bottom:none;">&larr; home</a>
+<h1>Work in progress</h1>
+<p>What's currently being built across the PLANETAI program — prototypes,
+mockups, drafts that are not yet shipped but are visible to partners for
+review and feedback. Each preview links to the live build, names a status,
+and lists what kind of feedback is most useful right now.</p>
+<p class="mono" style="color:var(--ink-muted);font-size:0.85rem;">
+{len(previews)} active preview{'s' if len(previews) != 1 else ''}.</p>
+
+<div class="pilots-index">{"".join(cards)}</div>
+
+{edit_link("previews/", label="Browse previews/ on GitHub")}
+{CONTRIBUTE_FOOTER}
+"""
+    return render_layout(
+        title="Work in progress",
+        body=body,
+        root="../",
+        active="previews",
+    )
+
+
+def build_previews() -> int:
+    previews_dir = REPO_ROOT / "previews"
+    if not previews_dir.exists():
+        return 0
+    drafted: list[tuple[str, dict]] = []
+    for yaml_path in sorted(previews_dir.glob("*.yaml")):
+        slug = yaml_path.stem
+        p = load_yaml(yaml_path)
+        out = render_preview_detail(slug, p)
+        out_path = previews_dir / f"{slug}.html"
+        out_path.write_text(out, encoding="utf-8")
+        drafted.append((slug, p))
+        print(f"  wrote {out_path.relative_to(REPO_ROOT)}")
+    if drafted:
+        idx = previews_dir / "index.html"
+        idx.write_text(render_previews_index(drafted), encoding="utf-8")
+        print(f"  wrote {idx.relative_to(REPO_ROOT)}")
+    return len(drafted)
+
+
+# ---------------------------------------------------------------------------
 # main
 # ---------------------------------------------------------------------------
 
@@ -815,10 +1043,14 @@ def main() -> int:
     print("pilots/")
     n_pilots = build_pilots()
     print()
+    print("previews/")
+    n_previews = build_previews()
+    print()
     print("stubs/")
     build_stubs()
     print()
-    print(f"done · {n_decisions} decisions, {n_pilots} pilots rendered")
+    print(f"done · {n_decisions} decisions, {n_pilots} pilots, "
+          f"{n_previews} previews rendered")
     return 0
 
 

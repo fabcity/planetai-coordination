@@ -1,0 +1,69 @@
+slug: serangan-hyperlocal
+display_name: Serangan Hyperlocal Dashboard
+short_desc: |
+  Stage-2 mockup of the matryoshka hyperlocal dashboard for
+  Banjar Serangan, Bali — the first instantiation of the five
+  architectural decisions locked on 4 May 2026 (matryoshka schema,
+  three trust rings, hyperlocal GIS as editable substrate, FCI
+  matryoshka with dual aggregation, federated-AI status visible).
+
+  Built in Indonesian (lang="id"), uses Leaflet for real basemap
+  + heatmap overlays, ring-toggle UI for the resident / council /
+  hub-ops trust rings. Single-file HTML, ~93KB. Data is mocked at
+  this stage — the surface tests visual + IA + interaction patterns
+  before partner-data integration.
+
+status: stage-2-mockup
+opened: 2026-05-05
+last_updated: 2026-05-05
+
+# Live URL: this preview lives in the planetai_publish repo and
+# deploys to planetai.fab.city/local-hubs/serangan/ on the next push.
+# If the URL 404s, planetai_publish has not yet been pushed since the
+# build — flag it on coord.planetai.fab.city so the preview lands.
+live_url: https://planetai.fab.city/local-hubs/serangan/
+source_path: local-hubs/serangan/index.html
+source_repo: planetai_publish
+
+owners:
+  lead: Tomas Diez
+  pilot_anchor: Bali
+  partners_named:
+    - CAST Foundation (coordinator review)
+    - MDG / Fab Lab Bali (executor review)
+    - IT Del — Bali office (Ben Koo, technical review)
+
+asks:
+  looking_for_feedback_on:
+    - Trust-ring toggle UX — does the resident / council / hub-ops gradient feel right, and does the gradual disclosure pattern hold?
+    - Tier label localization — the universal T0–T4 schema underneath; does the Banjar Serangan label set on top read naturally to a Balinese reader?
+    - FCI vertical strip — placement, density, whether the synthetic-vs-aggregated divergence is legible at a glance
+    - Sensor + open-data integration cadence — what frequency do partners actually need; what is the right Bali Satu Data harvest rhythm
+    - Indonesian localisation — translation accuracy, terminology choices, anything that reads as a literal translation rather than native phrasing
+  not_ready_for:
+    - Production deployment (data is mocked)
+    - Real-time data integration with Bali Satu Data
+    - Customary-authority sign-off on the Tri Hita Karana cosmological-category mapping (Path B precondition still pending; see related decision)
+    - Partner-name attribution beyond the three named technical leads
+
+related_track: track-bali-hyperlocal-dashboard
+
+related_decisions:
+  - 2026-05-04_hyperlocal-dashboard-ia-stage1
+  - 2026-04-28_bali-three-source-reframe
+  - 2026-05-01_tri-hita-karana-path-b
+  - 2026-05-04_bali-org-correction
+
+notes: |
+  This is the first preview entry on the WIP surface. The format
+  doubles as a template — copy the YAML schema for any new
+  in-progress prototype across PLANETAI (Boston FAB26 demo,
+  Barcelona observatory v2, etc.). The preview detail page surfaces
+  the *Looking for feedback on* / *Not ready for* split deliberately,
+  because partners need to know what kind of comment is useful at
+  this stage and what is premature.
+
+  The Stage-2 mockup tag is precise: the IA decisions (Stage 1) are
+  locked; visual mockup is functional; data integration (Stage 3)
+  is the next sprint. Feedback now is most useful at the IA + visual
+  + interaction layers, not at the data-pipeline layer.

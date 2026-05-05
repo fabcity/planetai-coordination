@@ -39,6 +39,20 @@ This repo is for **coordination state** — decisions, reviews, waves, tracks, p
 
 If your contribution doesn't fit, consider whether it belongs in one of the sister repos above.
 
+## WIP / Previews — schema
+
+In-progress prototypes (mockups, drafts, builds-in-flight) live as YAML files in `previews/{slug}.yaml`. Each entry carries:
+
+- `display_name`, `short_desc` — what it is.
+- `status` — one of `early-sketch`, `stage-1-ia`, `stage-2-mockup`, `functional-prototype`, `near-ready`, `shipped`. The status is what stage of fidelity reviewers should expect, not a project-management label.
+- `live_url` — where the preview is actually hosted. For PLANETAI surfaces in the `planetai_publish` repo, this is a `planetai.fab.city/...` URL that becomes live on the next push of that repo.
+- `source_path` + `source_repo` — for the *Source on GitHub* link.
+- `owners` — lead, pilot anchor, named partners.
+- `asks.looking_for_feedback_on` and `asks.not_ready_for` — the load-bearing fields. They tell a reviewer what kind of comment is useful at this stage and what is premature. Without these the WIP surface becomes a noise channel.
+- `related_track`, `related_decisions` — backreferences.
+
+Every preview gets a *File feedback on this preview* link that opens a pre-titled GitHub issue. Use the WIP form when you want a structured response; use a plain comment when you have a quick observation.
+
 ## Pilot pages — schema
 
 Each pilot has two source files:
