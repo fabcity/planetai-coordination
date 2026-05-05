@@ -1,0 +1,52 @@
+name: build
+
+# Auto-rebuild HTML from YAML/markdown on every push to main.
+# Generated HTML is committed back with [skip ci] in the message so the
+# action does not retrigger itself. Cloudflare Pages auto-deploys the
+# resulting commit.
+#
+# Net effect: contributors only edit YAML (via the GitHub web UI or a PR);
+# HTML rebuilds and the live site updates without anyone running the
+# build script locally.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # Need full history so the auto-commit action can push a new commit
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install pyyaml
+
+      - name: Build site
+        run: python3 scripts/build.py
+
+      - name: Commit regenerated HTML
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "rebuild: regenerate HTML [skip ci]"
+          commit_user_name: planetai-coord-bot
+          commit_user_email: actions@users.noreply.github.com
+          file_pattern: "**/*.html"

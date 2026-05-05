@@ -1,0 +1,92 @@
+name: Propose a decision
+description: Propose a new decision for the PLANETAI coordination log.
+title: "[Decision] "
+labels: ["decision-proposal"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form to propose a new decision for the PLANETAI
+        coordination log. You don't need to write YAML — fill the fields
+        below, and one of the maintainers will convert your proposal into
+        a YAML file and merge it after review.
+
+        See [CONTRIBUTING.md](https://github.com/fabcity/planetai-coordination/blob/main/CONTRIBUTING.md)
+        for context on what makes a good decision entry.
+
+  - type: input
+    id: title
+    attributes:
+      label: Title
+      description: Short imperative title — what is changing.
+      placeholder: "e.g. Bali pilot data sources reframed"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: scope
+    attributes:
+      label: Scope
+      description: Which layer of the program does this decision affect?
+      options:
+        - network
+        - program
+        - pilot:barcelona
+        - pilot:boston
+        - pilot:santiago
+        - pilot:bali
+    validations:
+      required: true
+
+  - type: textarea
+    id: prior_state
+    attributes:
+      label: Prior state
+      description: What is true today, before the change?
+      placeholder: "Describe the existing situation."
+    validations:
+      required: true
+
+  - type: textarea
+    id: change
+    attributes:
+      label: Proposed change
+      description: What should change?
+    validations:
+      required: true
+
+  - type: textarea
+    id: reasoning
+    attributes:
+      label: Reasoning
+      description: Why this change? What is the load-bearing rationale?
+    validations:
+      required: true
+
+  - type: input
+    id: required_reviewers
+    attributes:
+      label: Required reviewers
+      description: GitHub handles or names of who needs to ack this. Comma-separated.
+      placeholder: "e.g. tomasvivanco, lauri, lucasm"
+
+  - type: input
+    id: related
+    attributes:
+      label: Related decisions (optional)
+      description: IDs of related decisions in the log. Comma-separated.
+      placeholder: "e.g. 2026-04-28_bali-three-source-reframe"
+
+  - type: textarea
+    id: artifacts_changed
+    attributes:
+      label: Artifacts changed (optional)
+      description: Files, surfaces, or external artifacts that need updating to reflect this decision.
+
+  - type: checkboxes
+    id: ack
+    attributes:
+      label: Ack
+      options:
+        - label: I have read the existing decision log to check this proposal does not duplicate or contradict an existing entry.
+          required: true

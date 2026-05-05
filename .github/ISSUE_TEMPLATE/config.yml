@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Email a maintainer (no GitHub account)
+    url: mailto:tomas@fab.city
+    about: If you can't or don't want to use GitHub forms, email Tomas. He or Lucas will log the entry on your behalf.
+  - name: Read CONTRIBUTING.md first
+    url: https://github.com/fabcity/planetai-coordination/blob/main/CONTRIBUTING.md
+    about: Quick reference on what kinds of contributions belong here, and how acks / pushbacks are recorded.

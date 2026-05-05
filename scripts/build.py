@@ -30,6 +30,42 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 NOW = "2026-05-05"  # build stamp; edit when stale
 COORD_VERSION = "v0.1"
 
+# GitHub repository this build deploys from. The "Edit on GitHub" links
+# point at the source file at this URL. If the repo lives somewhere else,
+# update this one constant.
+REPO_URL = "https://github.com/fabcity/planetai-coordination"
+DEFAULT_BRANCH = "main"
+
+
+def edit_link(source_path: str, *, label: str = "Edit on GitHub") -> str:
+    """Render an 'Edit on GitHub' link for a given source path.
+
+    source_path is repo-relative — e.g. "decisions/foo.yaml" or
+    "decisions/" for the directory listing.
+    """
+    if source_path.endswith("/"):
+        href = f"{REPO_URL}/tree/{DEFAULT_BRANCH}/{source_path.rstrip('/')}"
+    else:
+        href = f"{REPO_URL}/edit/{DEFAULT_BRANCH}/{source_path}"
+    return (
+        f'<p class="edit-link" style="margin-top:48px;'
+        f'font-family:var(--font-mono);font-size:11px;'
+        f'letter-spacing:0.05em;color:var(--ink-muted);">'
+        f'<a href="{href}" style="color:var(--ink-muted);'
+        f'border-bottom:1px dashed var(--rule);">'
+        f'{label} &rarr;</a></p>'
+    )
+
+
+CONTRIBUTE_FOOTER = (
+    f'<p class="edit-link" style="margin-top:24px;'
+    f'font-family:var(--font-mono);font-size:11px;'
+    f'letter-spacing:0.05em;color:var(--ink-muted);">'
+    f'New here? See <a href="{REPO_URL}/blob/{DEFAULT_BRANCH}/CONTRIBUTING.md" '
+    f'style="color:var(--ink-muted);border-bottom:1px dashed var(--rule);">'
+    f'how to contribute &rarr;</a></p>'
+)
+
 
 # ---------------------------------------------------------------------------
 # helpers
@@ -286,6 +322,11 @@ def render_decision_detail(d: dict, slug: str) -> str:
             f'<ul class="related-list">{items}</ul></div>'
         )
 
+    # edit-on-github
+    body_parts.append(edit_link(f"decisions/{slug}.yaml",
+                                label="Edit this decision on GitHub"))
+    body_parts.append(CONTRIBUTE_FOOTER)
+
     return render_layout(
         title=d.get("title", slug),
         body="\n".join(body_parts),
@@ -331,6 +372,8 @@ this a week later should know not just <em>what</em> is true but <em>why</em>.</
 <p class="mono" style="color:var(--ink-muted);font-size:0.85rem;">
 {len(decisions_sorted)} entries · seeded {NOW}</p>
 <ul class="decision-list">{"".join(rows)}</ul>
+{edit_link("decisions/", label="Browse decisions on GitHub")}
+{CONTRIBUTE_FOOTER}
 """
     return render_layout(
         title="Decisions",
@@ -354,6 +397,8 @@ border-bottom:none;">&larr; home</a>
 <div class="callout"><strong>Scaffold only.</strong> No entries yet.
 This surface ships with the dashboard but is intentionally empty at v0.1.
 Content lands in coming sessions.</div>
+{edit_link(f"{surface}/", label=f"Browse {surface}/ on GitHub")}
+{CONTRIBUTE_FOOTER}
 """
     return render_layout(
         title=surface.title(),

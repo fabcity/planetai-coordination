@@ -1,0 +1,63 @@
+name: Ack or push back on a review
+description: Respond to an open review in the PLANETAI coordination log.
+title: "[Review response] "
+labels: ["review-response"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form to respond to an open review. If you don't see the
+        review listed yet, the review queue may not be populated — email
+        Tomas or Lucas instead.
+
+  - type: input
+    id: review_id
+    attributes:
+      label: Review ID
+      description: The review you are responding to. Find it in the review queue at coord.planetai.fab.city/reviews/.
+      placeholder: "e.g. review-2026-05-05-pito-dido-cell-weights"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: response
+    attributes:
+      label: Your response
+      options:
+        - ACK as-is
+        - ACK with comments
+        - PUSH BACK
+    validations:
+      required: true
+
+  - type: textarea
+    id: comments
+    attributes:
+      label: Comments / reasoning
+      description: If "ACK as-is", you can leave this blank. Otherwise — what specifically are you ack'ing or pushing back on?
+    validations:
+      required: false
+
+  - type: input
+    id: attribution
+    attributes:
+      label: How should we attribute this response?
+      description: Your name + organization, as you'd like it logged.
+      placeholder: "e.g. Tomas Vivanco, methodology lead"
+    validations:
+      required: true
+
+  - type: input
+    id: role
+    attributes:
+      label: Your reviewer role
+      description: Are you a required reviewer, optional reviewer, or volunteering an outside perspective?
+      placeholder: "e.g. required reviewer (methodology)"
+
+  - type: checkboxes
+    id: ack
+    attributes:
+      label: Ack
+      options:
+        - label: I have read the artifact under review and the AI sub-agent's review notes (where present), and my response is mine — not generated.
+          required: true
