@@ -1,0 +1,18 @@
+# Cloudflare Worker configuration for the PLANETAI coordination dashboard.
+# Mirrors the planetai_publish setup but without the Basic Auth gate —
+# this site is publicly readable for partners and the network.
+#
+# The Worker is a passthrough to the Static Assets binding (env.ASSETS),
+# which serves every file in the repo root. HTML files (index.html,
+# decisions/*.html, pilots/*.html, previews/*.html, etc.) are served
+# directly. The build script regenerates HTML; commits are picked up
+# by Cloudflare's GitHub integration and auto-deployed.
+
+name = "planetai-coordination"
+main = "src/index.js"
+compatibility_date = "2025-01-15"
+
+[assets]
+directory = "./"
+binding = "ASSETS"
+not_found_handling = "404-page"

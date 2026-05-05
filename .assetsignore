@@ -1,0 +1,14 @@
+# Files NOT served as static assets at coord.planetai.fab.city.
+# These stay in the repo (visible on GitHub) but aren't reachable as URLs.
+src/
+scripts/
+.git/
+.github/
+.gitignore
+.assetsignore
+wrangler.toml
+requirements.txt
+LICENSE
+*.md
+**/*.yaml
+**/*.yml
