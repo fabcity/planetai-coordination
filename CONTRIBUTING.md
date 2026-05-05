@@ -10,6 +10,7 @@ Pick the one that fits how you'd rather work.
 
 If you'd rather fill a form than touch the underlying file:
 
+- **[Validate or revise a pilot section](https://github.com/fabcity/planetai-coordination/issues/new?template=validate-pilot-section.yml)** — every section of every pilot page can be validated, contributed to, reviewed, or revised. The action links beside each section pre-fill this form with the right pilot + section.
 - **[Propose a decision](https://github.com/fabcity/planetai-coordination/issues/new?template=propose-decision.yml)** — opens a structured GitHub Issue Form. Fill the fields (title, scope, prior state, change, reasoning, required reviewers). Tomas or Lucas converts your proposal into a YAML file in `decisions/` when triaging. You'll be tagged on the resulting commit.
 - **[Ack or push back on a review](https://github.com/fabcity/planetai-coordination/issues/new?template=ack-or-pushback.yml)** — same shape, scoped to open review windows.
 
@@ -37,6 +38,26 @@ This repo is for **coordination state** — decisions, reviews, waves, tracks, p
 - Internal grant-application bureaucracy — applicant-org changes, submission versions, deadline-day fix-packs. Those are real but they don't belong on a project-coordination dashboard.
 
 If your contribution doesn't fit, consider whether it belongs in one of the sister repos above.
+
+## Pilot pages — schema
+
+Each pilot has two source files:
+
+- `pilots/{slug}.md` — partner-facing markdown. Five H2 sections: Overview, What's running, Data access, Open questions, Proposed pilot scope. The build script splits on H2 boundaries; each section becomes a validatable unit.
+- `pilots/{slug}.yaml` — sidecar with status, contacts, network-vs-pilot framing, data sources, hypotheses, open asks, and the `validation:` block tracking who has validated which section.
+
+When a partner validates a section through the form, the maintainer adds an entry to the relevant section's `validated_by:` list:
+
+```yaml
+validation:
+  sections:
+    overview:
+      status: validated
+      validated_by:
+        - { name: "Ben Koo", org: "IT Del Bali", date: 2026-05-08, scope: "data sources accuracy" }
+```
+
+Section status options: `validated`, `pending`, `contested`, `open`. The pilots index reads these and displays per-pilot validation progress.
 
 ## Decision-log entries — schema
 

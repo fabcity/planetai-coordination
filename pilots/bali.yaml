@@ -1,0 +1,125 @@
+slug: bali
+display_name: Bali
+status: P2
+host_state: Indonesia
+time_zone: WITA (UTC+8)
+
+contacts:
+  coordinator:
+    name: CAST Foundation
+    role: coordinator + administrator
+    primary: TBD (named contact pending)
+    email: TBD
+  executor:
+    name: MDG / Fab Lab Bali
+    role: execution (one operational unit; MDG is contractual identity)
+    primary: TBD
+    email: TBD
+  technical:
+    name: IT Del — Bali office
+    role: technical AI + data layer; Sumatra campus as compute backbone
+    primary: Ben Koo
+    email: TBD
+    affiliation_note: |
+      Bali office for local presence; Sumatra LPPM + AI Center of Excellence
+      (Rosni Lumbantoruan) for compute. Ben Koo is the lead author of PKC
+      (Koo, Aliana & Corley 2023, IEEE).
+  customary_authority:
+    status: not_yet_named
+    candidates:
+      - banjar adat
+      - desa adat
+      - PHDI scholar
+    binding_for:
+      - tri-hita-karana-path-b
+
+network_vs_pilot:
+  network_committed:
+    - Four-pillar × five-scale matrix (Full Stack Metrics Framework)
+    - Two pre-registered hypotheses (H_0-T, H_0-A)
+    - Shared connectors-yaml schema for data sources
+    - Hub-as-harvester operational model (CENTRINNO Hub Toolkit substrate)
+  pilot_specific:
+    - Tri Hita Karana ↔ four-pillar mapping (Bali co-design only)
+    - Bali Satu Data ingest pipeline preserving Indonesian metadata
+    - Atma supplementary dataset published un-flattened
+    - Mirror of Green Hydrogen Village (Serangan) governance pattern
+
+data_sources:
+  primary: bali-satu-data
+  secondary:
+    - wipo-gii-2025
+    - fab-lab-activity-index
+  not_applicable:
+    - metroverse  # no Denpasar coverage
+
+hypotheses:
+  H_0_T:
+    in_grant_unit: Bali bioregion district anchored by Fab Lab Bali / Serangan
+    signal_source: Bali Satu Data district waste / energy / material indicators
+    sensor_campaigns:
+      - tropical-humidity-calibration
+      - soundscape
+      - water
+  H_0_A:
+    procurement_source: LKPP / SPSE
+
+open_asks:
+  - id: bali-customary-authority-naming
+    asks_of: CAST + MDG + IT Del
+    by: 2026-06-30
+    status: pending_partner_decision
+  - id: bali-wri-mel-counterpart
+    asks_of: CAST (intro) + WRI Indonesia (assignment)
+    by: 2026-07-31
+    status: pending
+  - id: it-del-bali-capacity-note
+    asks_of: Ben Koo
+    by: 2026-06-15
+    status: pending
+  - id: cast-coordinator-scope-confirmation
+    asks_of: CAST Foundation
+    by: 2026-06-30
+    status: pending
+  - id: bali-satu-data-sub-annual-datasets
+    asks_of: Tim SPBE Diskominfos (via CAST)
+    by: 2026-07-31
+    status: pending
+  - id: flai-denpasar-density-check
+    asks_of: PLANETAI methodology team + MDG / Fab Lab Bali
+    by: 2026-08-15
+    status: pending
+
+# Validation tracks who has confirmed which sections of this pilot
+# description. Each section follows the canonical PILOT_SECTIONS slugs
+# (overview / whats-running / data-access / open-questions / proposed-pilot-scope).
+# To validate a section, partners use the Issue Form linked from the page.
+validation:
+  last_full_review: null      # set when all five sections have at least one validator
+  sections:
+    overview:
+      status: pending          # validated | pending | contested | open
+      validated_by: []
+      open_questions: []
+    whats-running:
+      status: pending
+      validated_by: []
+      open_questions: []
+    data-access:
+      status: pending
+      validated_by: []
+      open_questions: []
+    open-questions:
+      status: pending
+      validated_by: []
+      open_questions: []
+    proposed-pilot-scope:
+      status: pending
+      validated_by: []
+      open_questions: []
+
+related_decisions:
+  - 2026-04-28_bali-three-source-reframe
+  - 2026-05-01_tri-hita-karana-path-b
+  - 2026-05-04_bali-org-correction
+  - 2026-05-04_hyperlocal-dashboard-ia-stage1

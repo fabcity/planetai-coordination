@@ -1,0 +1,90 @@
+name: Validate or revise a pilot section
+description: Validate, contribute to, review, or propose changes to a section of a pilot description.
+title: "[Pilot] "
+labels: ["pilot-validation"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form to respond to a section of one of the four PLANETAI
+        pilot pages. Four ways to respond — pick the one that fits.
+        If you want to propose a major rewrite, the **Suggest changes**
+        link beside the section opens GitHub's web editor on the source
+        markdown directly; that path may be cleaner than this form.
+
+  - type: dropdown
+    id: pilot
+    attributes:
+      label: Pilot
+      options:
+        - Barcelona
+        - Boston
+        - Santiago
+        - Bali
+    validations:
+      required: true
+
+  - type: dropdown
+    id: section
+    attributes:
+      label: Section
+      options:
+        - Overview
+        - What's running
+        - Data access
+        - Open questions
+        - Proposed pilot scope
+    validations:
+      required: true
+
+  - type: dropdown
+    id: response
+    attributes:
+      label: Your response
+      description: |
+        - **Validate** — you confirm this section is accurate and current.
+        - **Contribute** — you have new information to add.
+        - **Review** — you have a question or comment.
+        - **Change** — you want to propose a specific edit.
+      options:
+        - Validate — this section is accurate
+        - Contribute — I have information to add
+        - Review — I have a question or comment
+        - Change — I want to propose an edit
+    validations:
+      required: true
+
+  - type: textarea
+    id: comments
+    attributes:
+      label: Comments / contribution / proposed change
+      description: |
+        If validating, you can leave this blank — your name + the
+        timestamp are enough. Otherwise, please be specific: what's the
+        addition, the question, or the proposed change?
+    validations:
+      required: false
+
+  - type: input
+    id: attribution
+    attributes:
+      label: How should we attribute you?
+      description: Your name + organization. Used in the section's `validated_by` list (or in the response thread, if you're not validating).
+      placeholder: "e.g. Ben Koo, IT Del Bali"
+    validations:
+      required: true
+
+  - type: input
+    id: scope
+    attributes:
+      label: Validation scope (optional)
+      description: If validating, what specifically are you ack'ing? E.g. "the data sources list" / "the named contacts" / "the whole section".
+      placeholder: "e.g. data sources accuracy"
+
+  - type: checkboxes
+    id: ack
+    attributes:
+      label: Ack
+      options:
+        - label: I have read the section above and my response is mine — not generated.
+          required: true

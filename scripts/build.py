@@ -19,11 +19,17 @@ import re
 import sys
 from pathlib import Path
 from typing import Any
+from urllib.parse import quote_plus
 
 try:
     import yaml
 except ImportError:
     sys.exit("Missing dependency: pip install pyyaml")
+
+try:
+    import markdown as md_lib
+except ImportError:
+    sys.exit("Missing dependency: pip install markdown")
 
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -409,6 +415,343 @@ Content lands in coming sessions.</div>
 
 
 # ---------------------------------------------------------------------------
+# pilot pages
+# ---------------------------------------------------------------------------
+
+# Section list. Every pilot page is structured around these five H2-bound
+# sections. Slug → display label.
+PILOT_SECTIONS = [
+    ("overview",              "Overview"),
+    ("whats-running",         "What's running"),
+    ("data-access",           "Data access"),
+    ("open-questions",        "Open questions"),
+    ("proposed-pilot-scope",  "Proposed pilot scope"),
+]
+PILOT_SECTION_BY_LABEL = {label: slug for slug, label in PILOT_SECTIONS}
+
+
+def slugify(s: str) -> str:
+    s = s.strip().lower()
+    s = re.sub(r"[^a-z0-9]+", "-", s)
+    return s.strip("-")
+
+
+def split_markdown_into_sections(md_text: str) -> dict[str, str]:
+    """Split a markdown body on H2 boundaries.
+
+    Returns a dict keyed by section slug. Anything before the first H2
+    is dropped (treat the page-level H1 as separate metadata).
+    """
+    parts: dict[str, str] = {}
+    current_label: str | None = None
+    buf: list[str] = []
+    for line in md_text.splitlines():
+        m = re.match(r"^##\s+(.+?)\s*$", line)
+        if m:
+            if current_label is not None:
+                parts[slugify(current_label)] = "\n".join(buf).strip()
+            current_label = m.group(1).strip()
+            buf = []
+        else:
+            if current_label is not None:
+                buf.append(line)
+    if current_label is not None:
+        parts[slugify(current_label)] = "\n".join(buf).strip()
+    return parts
+
+
+def render_validators(validated_by: list[dict] | None) -> str:
+    if not validated_by:
+        return ""
+    bits = []
+    for v in validated_by:
+        name = esc(v.get("name", ""))
+        org = v.get("org")
+        date = v.get("date")
+        scope = v.get("scope")
+        s = f"<strong>{name}</strong>"
+        if org: s += f" ({esc(org)})"
+        if date: s += f" &middot; {esc(date)}"
+        if scope: s += f" &middot; <em>{esc(scope)}</em>"
+        bits.append(s)
+    return "Validated by " + "; ".join(bits)
+
+
+def section_action_links(*, pilot_slug: str, pilot_display: str,
+                         section_slug: str, section_label: str) -> str:
+    """Render the three action links per section.
+
+    - Validate this section (opens validate-pilot-section issue form,
+      pre-filled with pilot + section)
+    - Suggest changes (opens GitHub web editor on the markdown source)
+    - Add a comment (opens blank issue with pre-filled title)
+    """
+    p = quote_plus(pilot_display)
+    s = quote_plus(section_label)
+    validate_url = (
+        f"{REPO_URL}/issues/new?template=validate-pilot-section.yml"
+        f"&pilot={p}&section={s}"
+    )
+    edit_url = f"{REPO_URL}/edit/{DEFAULT_BRANCH}/pilots/{pilot_slug}.md"
+    title = quote_plus(f"[{pilot_display} / {section_label}] ")
+    comment_url = f"{REPO_URL}/issues/new?title={title}&labels=pilot-comment"
+    return (
+        f'<div class="pilot-section__actions">'
+        f'<a class="primary" href="{validate_url}">Validate this section</a>'
+        f'<a href="{edit_url}">Suggest changes</a>'
+        f'<a href="{comment_url}">Add a comment</a>'
+        f'</div>'
+    )
+
+
+def render_pilot_page(slug: str, md_text: str, sidecar: dict) -> str:
+    sections_md = split_markdown_into_sections(md_text)
+
+    display = sidecar.get("display_name") or slug.title()
+    status = sidecar.get("status", "")
+    host_state = sidecar.get("host_state", "")
+    tz = sidecar.get("time_zone", "")
+
+    body_parts: list[str] = []
+    body_parts.append(
+        f'<a href="index.html" class="mono" style="font-size:11px;'
+        f'letter-spacing:0.06em;text-transform:uppercase;color:var(--ink-muted);'
+        f'border-bottom:none;">&larr; all pilots</a>'
+    )
+
+    eyebrow = f'PILOT &middot; {esc(status)}' if status else 'PILOT'
+    body_parts.append(
+        f'<div class="decision__eyebrow">{eyebrow}</div>'
+    )
+    body_parts.append(f'<h1>{esc(display)}</h1>')
+
+    # meta
+    meta_rows = []
+    if host_state:
+        meta_rows.append(f"<dt>Host state</dt><dd>{esc(host_state)}</dd>")
+    if tz:
+        meta_rows.append(f"<dt>Time zone</dt><dd>{esc(tz)}</dd>")
+    contacts = sidecar.get("contacts") or {}
+    contact_lines = []
+    for role, payload in contacts.items():
+        if not payload: continue
+        if isinstance(payload, dict):
+            name = payload.get("name")
+            if not name:
+                # fall back to status, humanised
+                name = (payload.get("status") or "").replace("_", " ")
+            note = payload.get("role")
+            line = f"<strong>{esc(role.replace('_', ' ').title())}</strong>: {esc(name)}"
+            if note: line += f" &middot; <em>{esc(note)}</em>"
+            contact_lines.append(line)
+    if contact_lines:
+        meta_rows.append(
+            f"<dt>Contacts</dt><dd>{'<br>'.join(contact_lines)}</dd>"
+        )
+    if meta_rows:
+        body_parts.append(
+            f'<dl class="pilot-meta">{"".join(meta_rows)}</dl>'
+        )
+
+    # validation summary
+    validation = sidecar.get("validation") or {}
+    section_states = validation.get("sections") or {}
+    last_full = validation.get("last_full_review")
+
+    rows = []
+    counts = {"validated": 0, "pending": 0, "contested": 0, "open": 0}
+    for sec_slug, sec_label in PILOT_SECTIONS:
+        st = (section_states.get(sec_slug) or {}).get("status", "pending")
+        counts[st] = counts.get(st, 0) + 1
+        n_validators = len((section_states.get(sec_slug) or {}).get("validated_by") or [])
+        rows.append(
+            f"<tr><td>{esc(sec_label)}</td>"
+            f'<td><span class="section-status" data-status="{esc(st)}">{esc(st)}</span></td>'
+            f"<td>{n_validators}</td></tr>"
+        )
+    summary_lead = (
+        f"{counts.get('validated', 0)} of {len(PILOT_SECTIONS)} sections validated"
+    )
+    if last_full:
+        summary_lead += f" &middot; last full review {esc(last_full)}"
+    body_parts.append(f"""
+<div class="validation-summary">
+  <p style="margin-top:0"><strong>{summary_lead}.</strong>
+     This page is a partner-validation surface — every section can be
+     validated, contributed to, reviewed, or revised. See the action
+     links beside each section.</p>
+  <table>
+    <tr><th>Section</th><th>Status</th><th>Validators</th></tr>
+    {"".join(rows)}
+  </table>
+</div>
+""")
+
+    # network vs pilot-specific (if present)
+    nvp = sidecar.get("network_vs_pilot") or {}
+    if nvp:
+        nc = nvp.get("network_committed") or []
+        ps = nvp.get("pilot_specific") or []
+        if nc or ps:
+            cols = []
+            if nc:
+                items = "".join(f"<li>{esc(x)}</li>" for x in nc)
+                cols.append(
+                    f'<div><h3 style="font-family:var(--font-mono);'
+                    f'font-size:11px;letter-spacing:0.05em;'
+                    f'text-transform:uppercase;color:var(--fc-blue);">'
+                    f'Network-committed</h3><ul style="padding-left:18px;">'
+                    f'{items}</ul></div>'
+                )
+            if ps:
+                items = "".join(f"<li>{esc(x)}</li>" for x in ps)
+                cols.append(
+                    f'<div><h3 style="font-family:var(--font-mono);'
+                    f'font-size:11px;letter-spacing:0.05em;'
+                    f'text-transform:uppercase;color:var(--fc-blue);">'
+                    f'Pilot-specific</h3><ul style="padding-left:18px;">'
+                    f'{items}</ul></div>'
+                )
+            body_parts.append(
+                f'<div style="display:grid;grid-template-columns:'
+                f'repeat(auto-fit,minmax(280px,1fr));gap:24px;'
+                f'margin:24px 0 32px;">{"".join(cols)}</div>'
+            )
+
+    # body sections from markdown
+    md_renderer = md_lib.Markdown(extensions=["extra", "sane_lists"])
+    for sec_slug, sec_label in PILOT_SECTIONS:
+        body_md = sections_md.get(sec_slug, "")
+        sec_state = section_states.get(sec_slug) or {}
+        st = sec_state.get("status", "pending")
+        validators_html = render_validators(sec_state.get("validated_by"))
+        rendered_body = md_renderer.convert(body_md) if body_md else (
+            '<p style="color:var(--ink-muted);"><em>No content yet for this '
+            'section. Use <strong>Suggest changes</strong> to add the first '
+            'draft.</em></p>'
+        )
+        md_renderer.reset()
+        body_parts.append(f"""
+<section class="pilot-section" id="{esc(sec_slug)}">
+  <div class="pilot-section__head">
+    <h2>{esc(sec_label)}</h2>
+    <span class="section-status" data-status="{esc(st)}">{esc(st)}</span>
+  </div>
+  <div class="pilot-section__body">{rendered_body}</div>
+  {f'<div class="pilot-section__validators">{validators_html}</div>' if validators_html else ''}
+  {section_action_links(pilot_slug=slug, pilot_display=display,
+                         section_slug=sec_slug, section_label=sec_label)}
+</section>
+""")
+
+    # open asks (if present)
+    open_asks = sidecar.get("open_asks") or []
+    if open_asks:
+        items = []
+        for a in open_asks:
+            if isinstance(a, dict):
+                summary = esc(a.get("id") or "")
+                rest = []
+                if a.get("asks_of"): rest.append(f"asks: {esc(a['asks_of'])}")
+                if a.get("by"): rest.append(f"by {esc(a['by'])}")
+                if a.get("status"): rest.append(esc(a['status']))
+                line = f"<strong>{summary}</strong>"
+                if rest: line += " &middot; " + " &middot; ".join(rest)
+            else:
+                line = esc(a)
+            items.append(f"<li>{line}</li>")
+        body_parts.append(
+            f'<h2>Open asks</h2><ul class="artifacts-list">{"".join(items)}</ul>'
+        )
+
+    # edit-on-github
+    body_parts.append(edit_link(f"pilots/{slug}.md",
+                                label="Edit pilot description on GitHub"))
+    body_parts.append(CONTRIBUTE_FOOTER)
+
+    return render_layout(
+        title=display,
+        body="\n".join(body_parts),
+        root="../",
+        active="pilots",
+    )
+
+
+def render_pilots_index(pilots: list[tuple[str, dict]]) -> str:
+    cards = []
+    for slug, sidecar in pilots:
+        display = sidecar.get("display_name") or slug.title()
+        status = sidecar.get("status", "")
+        host_state = sidecar.get("host_state", "")
+        validation = sidecar.get("validation") or {}
+        section_states = validation.get("sections") or {}
+        validated = sum(
+            1 for s in PILOT_SECTIONS
+            if (section_states.get(s[0]) or {}).get("status") == "validated"
+        )
+        cards.append(f"""
+<div class="pilot-card">
+  <div class="name"><a href="{esc(slug)}.html">{esc(display)}</a></div>
+  <div class="meta">{esc(status)} &middot; {esc(host_state)}</div>
+  <div class="progress">
+    <span class="section-status" data-status="{'validated' if validated == len(PILOT_SECTIONS) else 'pending'}">
+      {validated} / {len(PILOT_SECTIONS)} sections validated
+    </span>
+  </div>
+</div>""")
+    body = f"""
+<a href="../index.html" class="mono" style="font-size:11px;
+letter-spacing:0.06em;text-transform:uppercase;color:var(--ink-muted);
+border-bottom:none;">&larr; home</a>
+<h1>Pilots</h1>
+<p>Four bioregional pilots — Barcelona, Boston, Santiago de Chile, Bali.
+Each pilot page is a <strong>partner-validation surface</strong>: every
+section can be validated, contributed to, reviewed, or revised by anyone
+with knowledge to share. The four actions map to four ways partners
+already work together.</p>
+
+<p class="mono" style="color:var(--ink-muted);font-size:0.85rem;">
+{len(pilots)} of 4 pilot pages drafted &middot; the rest follow once the pattern is validated.</p>
+
+<div class="pilots-index">{"".join(cards)}</div>
+
+{edit_link("pilots/", label="Browse pilots/ on GitHub")}
+{CONTRIBUTE_FOOTER}
+"""
+    return render_layout(
+        title="Pilots",
+        body=body,
+        root="../",
+        active="pilots",
+    )
+
+
+def build_pilots() -> int:
+    pilots_dir = REPO_ROOT / "pilots"
+    if not pilots_dir.exists():
+        return 0
+    drafted = []
+    for md_path in sorted(pilots_dir.glob("*.md")):
+        slug = md_path.stem
+        yaml_path = pilots_dir / f"{slug}.yaml"
+        if not yaml_path.exists():
+            print(f"  warning: {md_path.name} has no sidecar yaml; skipping")
+            continue
+        sidecar = load_yaml(yaml_path)
+        md_text = md_path.read_text(encoding="utf-8")
+        out = render_pilot_page(slug, md_text, sidecar)
+        out_path = pilots_dir / f"{slug}.html"
+        out_path.write_text(out, encoding="utf-8")
+        drafted.append((slug, sidecar))
+        print(f"  wrote {out_path.relative_to(REPO_ROOT)}")
+    if drafted:
+        idx = pilots_dir / "index.html"
+        idx.write_text(render_pilots_index(drafted), encoding="utf-8")
+        print(f"  wrote {idx.relative_to(REPO_ROOT)}")
+    return len(drafted)
+
+
+# ---------------------------------------------------------------------------
 # main
 # ---------------------------------------------------------------------------
 
@@ -440,14 +783,12 @@ STUB_SURFACES = [
                 "delta-to-human flagged), and the closing window."),
     ("waves", "Evolution timeline. One card per ship event with reasoning — "
               "what changed, why, and how it shaped what came next."),
-    ("pilots", "One page per bioregional pilot — Barcelona, Boston, Santiago, "
-               "Bali. Distinguishes network-committed from pilot-specific."),
     ("tracks", "The seven open work-tracks: pilot deep-descriptions, Bali "
                "hyperlocal dashboard, fab lab network activation, Hamburg + CBA "
                "metrics alignment, FAB26 actions, funding scenarios with/without "
                "Google, and other funding opportunities."),
     ("canonical", "One-click index of every canonical PLANETAI artifact (paper, "
-                  "observatory, application v18, data manifest, schema)."),
+                  "observatory, data manifest, schema, methodology notes)."),
     ("people", "Who is who, time zones, what they review, preferred ack format."),
 ]
 
@@ -469,12 +810,15 @@ def main() -> int:
     print(f"  repo: {REPO_ROOT}")
     print()
     print("decisions/")
-    n = build_decisions()
+    n_decisions = build_decisions()
+    print()
+    print("pilots/")
+    n_pilots = build_pilots()
     print()
     print("stubs/")
     build_stubs()
     print()
-    print(f"done · {n} decisions rendered")
+    print(f"done · {n_decisions} decisions, {n_pilots} pilots rendered")
     return 0
 
 
