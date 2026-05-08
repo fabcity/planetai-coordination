@@ -800,15 +800,39 @@ def render_preview_detail(slug: str, p: dict) -> str:
     cta_links = []
     if live_url:
         cta_links.append(
-            f'<a class="primary" href="{esc(live_url)}">View live preview &rarr;</a>'
+            f'<a class="primary" href="{esc(live_url)}" target="_blank" rel="noopener">Open in new tab &rarr;</a>'
         )
     if source_path and source_repo:
         src_url = f"https://github.com/fabcity/{source_repo}/blob/main/{source_path}"
-        cta_links.append(f'<a href="{esc(src_url)}">Source on GitHub</a>')
+        cta_links.append(f'<a href="{esc(src_url)}" target="_blank" rel="noopener">Source on GitHub</a>')
     if cta_links:
         body_parts.append(
-            f'<div class="pilot-section__actions" style="margin:16px 0 32px;">'
+            f'<div class="pilot-section__actions" style="margin:16px 0 24px;">'
             f'{"".join(cta_links)}</div>'
+        )
+
+    # Inline live embed (iframe) — partners see the actual mockup,
+    # not just a description. Falls back to a "preview not yet
+    # deployed" notice if the URL 404s.
+    if live_url:
+        body_parts.append(
+            f'<div class="preview-embed">'
+            f'<div class="preview-embed__bar mono">'
+            f'<span>LIVE EMBED</span>'
+            f'<span class="preview-embed__url">{esc(live_url)}</span>'
+            f'</div>'
+            f'<iframe class="preview-embed__frame" src="{esc(live_url)}" '
+            f'title="{esc(display)} — live preview" '
+            f'loading="lazy" '
+            f'sandbox="allow-scripts allow-same-origin allow-popups allow-forms" '
+            f'referrerpolicy="no-referrer-when-downgrade">'
+            f'</iframe>'
+            f'<p class="preview-embed__fallback mono">'
+            f'If the embed is blank, the preview has not yet been '
+            f'deployed to <a href="{esc(live_url)}" target="_blank" rel="noopener">{esc(live_url)}</a>. '
+            f'<a href="https://github.com/fabcity/planetai-coordination/issues/new?title=%5BWIP+%2F+{quote_plus(display)}%5D+preview+not+deploying&amp;labels=wip-feedback">Flag it &rarr;</a>'
+            f'</p>'
+            f'</div>'
         )
 
     # Meta
@@ -879,7 +903,7 @@ def render_preview_detail(slug: str, p: dict) -> str:
     body_parts.append(
         f'<div class="pilot-section__actions" style="margin-top:32px;">'
         f'<a class="primary" href="{esc(feedback_url)}">File feedback on this preview</a>'
-        + (f'<a href="{esc(live_url)}">View live preview &rarr;</a>' if live_url else '')
+        + (f'<a href="{esc(live_url)}" target="_blank" rel="noopener">Open preview in new tab &rarr;</a>' if live_url else '')
         + '</div>'
     )
 
