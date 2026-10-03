@@ -1,5 +1,18 @@
 # planetai-coordination
 
+> **Superseded, October 2026. Not maintained since May 2026; kept as a record.** Do not open issues or pull requests
+> here. Where each part of this site went:
+>
+> - the programme and its public pages: [planetai.fab.city](https://planetai.fab.city/)
+> - decisions, with their reasoning: [`fabcity/planetai-node` docs/decisions/](https://github.com/fabcity/planetai-node/tree/main/docs/decisions)
+> - the node, its docs, and how to contribute (with an agent or without): [`fabcity/planetai-node`](https://github.com/fabcity/planetai-node)
+> - packs written for one place: [`fabcity/planetai-wild-packs`](https://github.com/fabcity/planetai-wild-packs)
+> - data sources and their reviews: [`fabcity/awesome-fabcity-data`](https://github.com/fabcity/awesome-fabcity-data)
+>
+> The site at coord.planetai.fab.city still serves these pages, each with a notice at the top saying the same.
+
+## What it was
+
 > Coordination layer for the PLANETAI program. The dashboard explains *what we have built*, surfaces the decisions that shaped it, and lists the open work-tracks where partners can plug in.
 
 Lives at **coord.planetai.fab.city**. Deliberately separate from `planetai_publish` so coordination scaffolding doesn't churn underneath the live observatory and paper, and so the coordination layer can keep developing on its own cadence.
